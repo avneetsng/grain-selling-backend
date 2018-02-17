@@ -1,8 +1,6 @@
 package com.prayasj.gndit.grainselling.model;
 
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -11,11 +9,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-@Getter
-@Setter
-@ToString
 @Entity
 @Table(name = "user_data")
+@NoArgsConstructor
 public class User {
 
   @Id
@@ -28,4 +24,9 @@ public class User {
 
   @Column(name = "password")
   private String password;
+
+  public User(String username, String password) {
+    this.username = username;
+    this.password = password;
+  }
 }

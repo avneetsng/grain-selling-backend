@@ -1,7 +1,7 @@
 package com.prayasj.gndit.grainselling.controller;
 
-import com.prayasj.gndit.grainselling.model.User;
-import com.prayasj.gndit.grainselling.repository.UserRepository;
+import com.prayasj.gndit.grainselling.dto.UserInfo;
+import com.prayasj.gndit.grainselling.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -9,16 +9,19 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import static org.springframework.http.HttpStatus.CREATED;
+
 @Controller
-public class SignUpController {
+public class UserController {
 
   @Autowired
-  private UserRepository userRepository;
+  private UserService userService;
 
   @PostMapping("/api/signup")
   @ResponseBody
-  public ResponseEntity signup(@RequestBody User user) {
-    userRepository.save(user);
-    return ResponseEntity.ok().build();
+  public ResponseEntity signup(@RequestBody UserInfo userInfo) {
+    return userService.signup(userInfo) ?
+        ResponseEntity.status(CREATED).build() :
+        ResponseEntity.badRequest().build();
   }
 }
