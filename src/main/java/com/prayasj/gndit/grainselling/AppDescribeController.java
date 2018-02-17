@@ -9,7 +9,7 @@ public class AppDescribeController {
 
   @RequestMapping("/desc")
   @ResponseBody
-  String describe() {
+  public String describe() {
     return "Kisan grain selling app by Prayas Jain";
   }
 }
