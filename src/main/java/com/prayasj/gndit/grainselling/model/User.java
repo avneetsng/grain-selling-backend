@@ -1,5 +1,6 @@
 package com.prayasj.gndit.grainselling.model;
 
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.Column;
@@ -12,6 +13,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "user_data")
 @NoArgsConstructor
+@Getter
 public class User {
 
   @Id
