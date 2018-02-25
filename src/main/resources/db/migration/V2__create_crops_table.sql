@@ -1,4 +1,4 @@
 CREATE TABLE crops (
  id SERIAL PRIMARY KEY,
- crop_name VARCHAR(100) NOT NULL
+ name VARCHAR(100) NOT NULL
 );
