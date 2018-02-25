@@ -28,7 +28,7 @@ public class UserCropRequest {
   @JoinColumn(name = "user_id", nullable = false)
   private User user;
 
-  @OneToOne(fetch = FetchType.LAZY)
+  @OneToOne
   @JoinColumn(name = "crop_id", nullable = false)
   @Getter
   private Crop crop;

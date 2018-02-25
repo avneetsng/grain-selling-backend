@@ -10,6 +10,8 @@ import com.prayasj.gndit.grainselling.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class UserCropRequestService {
 
@@ -27,5 +29,10 @@ public class UserCropRequestService {
     Crop crop = cropRepository.findByName(userCropRequestDto.getCropName());
     UserCropRequest userCropRequest = new UserCropRequest(user, crop, userCropRequestDto.getPrice(), userCropRequestDto.getQuantity());
     userCropRequestRepository.save(userCropRequest);
+  }
+
+  public List<UserCropRequest> getCropRequestsForUser(String userName){
+    User user = userRepository.findByUsername(userName);
+    return userCropRequestRepository.findByUser(user);
   }
 }

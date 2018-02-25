@@ -1,5 +1,6 @@
 package com.prayasj.gndit.grainselling.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -19,6 +20,7 @@ public class Crop {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(name = "id")
+  @JsonIgnore
   private Integer id;
 
   @Column(name = "name")
