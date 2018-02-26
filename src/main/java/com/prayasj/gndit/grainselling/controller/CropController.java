@@ -18,7 +18,6 @@ public class CropController {
     @GetMapping("/api/crops")
     @ResponseBody
     public ResponseEntity<List<String>> getCropName(){
-        List<String> allCropsName = cropService.getAllCropsName();
-        return ResponseEntity.ok(allCropsName);
+        return ResponseEntity.ok(cropService.getAllCropsName());
     }
 }

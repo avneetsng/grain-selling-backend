@@ -7,6 +7,9 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Function;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 
 @Service
@@ -17,10 +20,11 @@ public class CropService {
 
     public List<String> getAllCropsName(){
         List<Crop> crops = cropRepository.findAll();
-        List<String> cropNames = new ArrayList<>();
-        for (Crop crop : crops) {
-            cropNames.add(crop.getName());
-        }
-        return cropNames;
+        return crops.stream().map(new Function<Crop, String>() {
+            @Override
+            public String apply(Crop crop) {
+                return crop.getName();
+            }
+        }).collect(Collectors.toList());
     }
 }
