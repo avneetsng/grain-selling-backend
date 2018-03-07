@@ -13,6 +13,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import java.math.BigDecimal;
+import java.util.Date;
 
 @Entity
 @Table(name = "user_crop_request")
@@ -41,10 +42,16 @@ public class UserCropRequest {
   @Getter
   private BigDecimal quantity;
 
-  public UserCropRequest(User user, Crop crop, BigDecimal price, BigDecimal quantity) {
+
+  @Column(name = "created_at")
+  @Getter
+  private Date createdAt;
+
+  public UserCropRequest(User user, Crop crop, BigDecimal price, BigDecimal quantity, Date createdAt) {
     this.user = user;
     this.crop = crop;
     this.price = price;
     this.quantity = quantity;
+    this.createdAt = createdAt;
   }
 }
