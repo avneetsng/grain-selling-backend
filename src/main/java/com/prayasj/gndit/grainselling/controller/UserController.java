@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.validation.Valid;
+
 import static org.springframework.http.HttpStatus.CREATED;
 
 @Controller
@@ -19,7 +21,7 @@ public class UserController {
 
   @PostMapping("/api/signup")
   @ResponseBody
-  public ResponseEntity signup(@RequestBody UserInfo userInfo) {
+  public ResponseEntity signup(@Valid @RequestBody UserInfo userInfo) {
     return userService.signup(userInfo) ?
         ResponseEntity.status(CREATED).build() :
         ResponseEntity.badRequest().build();
