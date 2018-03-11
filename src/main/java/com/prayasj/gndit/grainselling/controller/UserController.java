@@ -33,7 +33,7 @@ public class UserController {
 
   @PostMapping("/api/profile")
   @ResponseBody
-  public ResponseEntity addProfileInfo(@RequestBody UserProfileDto userProfileDto,
+  public ResponseEntity addProfileInfo(@Valid @RequestBody UserProfileDto userProfileDto,
                                        @RequestHeader(JWT_TOKEN) String token) {
     UserProfile userProfile = userService.saveProfile(token, userProfileDto);
     return userProfile != null ?
