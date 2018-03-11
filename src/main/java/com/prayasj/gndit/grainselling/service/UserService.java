@@ -43,6 +43,11 @@ public class UserService {
     return userProfileRepository.save(new UserProfile(user, userProfileDto));
   }
 
+  public boolean hasProfile(String userName) {
+    User user = userRepository.findByUsername(userName);
+    return userProfileRepository.findByUser(user) != null;
+  }
+
   public String getUsernameFromToken(String token) {
     return Jwts.parser()
         .setSigningKey(appProperties.getSecret().getBytes())

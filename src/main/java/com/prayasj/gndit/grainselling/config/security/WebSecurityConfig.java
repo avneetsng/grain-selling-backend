@@ -1,6 +1,7 @@
 package com.prayasj.gndit.grainselling.config.security;
 
 import com.prayasj.gndit.grainselling.properties.AppProperties;
+import com.prayasj.gndit.grainselling.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -19,6 +20,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
   private UserDetailsService userDetailsService;
 
   @Autowired
+  private UserService userService;
+
+  @Autowired
   private AppProperties appProperties;
 
   @Autowired
@@ -26,7 +30,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
   @Override
   protected void configure(HttpSecurity http) throws Exception {
-    JWTAuthenticationFilter jwtAuthenticationFilter = new JWTAuthenticationFilter(authenticationManager(), appProperties);
+    JWTAuthenticationFilter jwtAuthenticationFilter = new JWTAuthenticationFilter(authenticationManager(), userService, appProperties);
     JWTAuthorizationFilter jwtAuthorizationFilter = new JWTAuthorizationFilter(authenticationManager(), appProperties);
     http
         .cors().and().csrf().disable().authorizeRequests()

@@ -2,7 +2,9 @@ package com.prayasj.gndit.grainselling.config.security;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.prayasj.gndit.grainselling.dto.UserInfo;
+import com.prayasj.gndit.grainselling.model.LoginResponse;
 import com.prayasj.gndit.grainselling.properties.AppProperties;
+import com.prayasj.gndit.grainselling.service.UserService;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -24,11 +26,13 @@ public class JWTAuthenticationFilter extends AbstractAuthenticationProcessingFil
   public static final String JWT_TOKEN = "jwt_token";
   public static final String HEADER_PREFIX = "Bearer ";
   private AuthenticationManager authenticationManager;
+  private UserService userService;
   private AppProperties appProperties;
 
-  public JWTAuthenticationFilter(AuthenticationManager authenticationManager, AppProperties appProperties) {
+  public JWTAuthenticationFilter(AuthenticationManager authenticationManager, UserService userService, AppProperties appProperties) {
     super(new AntPathRequestMatcher("/api/login", "POST"));
     this.authenticationManager = authenticationManager;
+    this.userService = userService;
     this.appProperties = appProperties;
   }
 
@@ -54,11 +58,20 @@ public class JWTAuthenticationFilter extends AbstractAuthenticationProcessingFil
                                           HttpServletResponse res,
                                           FilterChain chain,
                                           Authentication auth) throws UnsupportedEncodingException {
+    String username = ((User) auth.getPrincipal()).getUsername();
     String token = Jwts.builder()
-        .setSubject(((User) auth.getPrincipal()).getUsername())
+        .setSubject(username)
         .setExpiration(new Date(System.currentTimeMillis() + 864000000))
         .signWith(SignatureAlgorithm.HS256, appProperties.getSecret().getBytes("UTF-8"))
         .compact();
     res.addHeader(JWT_TOKEN, HEADER_PREFIX + token);
+    res.setContentType("application/json");
+    res.setCharacterEncoding("utf-8");
+    LoginResponse loginResponse = new LoginResponse(userService.hasProfile(username));
+    try {
+      res.getWriter().write(new ObjectMapper().writeValueAsString(loginResponse));
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
   }
 }
