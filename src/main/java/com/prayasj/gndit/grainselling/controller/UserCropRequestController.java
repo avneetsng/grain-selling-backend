@@ -39,9 +39,9 @@ public class UserCropRequestController {
 
   @GetMapping(value = "/api/crop-request", produces = APPLICATION_JSON_VALUE)
   @ResponseBody
-  public ResponseEntity<List<UserCropRequest>> getCropRequests(@RequestHeader(JWT_TOKEN) String token) {
+  public ResponseEntity<List<UserCropRequestDto>> getCropRequests(@RequestHeader(JWT_TOKEN) String token) {
     String userName = userService.getUsernameFromToken(token);
-    List<UserCropRequest> cropRequestsForUser = userCropRequestService.getCropRequestsForUser(userName);
+    List<UserCropRequestDto> cropRequestsForUser = userCropRequestService.getCropRequestsForUser(userName);
     return ResponseEntity.ok(cropRequestsForUser);
   }
 }

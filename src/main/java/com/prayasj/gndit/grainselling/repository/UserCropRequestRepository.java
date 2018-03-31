@@ -1,5 +1,6 @@
 package com.prayasj.gndit.grainselling.repository;
 
+import com.prayasj.gndit.grainselling.dto.UserCropRequestDto;
 import com.prayasj.gndit.grainselling.model.User;
 import com.prayasj.gndit.grainselling.model.UserCropRequest;
 import org.springframework.data.jpa.repository.JpaRepository;

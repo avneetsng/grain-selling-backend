@@ -20,38 +20,43 @@ import java.util.Date;
 @NoArgsConstructor
 public class UserCropRequest {
 
-  @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
-  @Column(name = "id")
-  private Integer id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
+    private Integer id;
 
-  @OneToOne(fetch = FetchType.LAZY)
-  @JoinColumn(name = "user_id", nullable = false)
-  private User user;
+    @Getter
+    @Column(name = "requestid")
+    private String requestId;
 
-  @OneToOne
-  @JoinColumn(name = "crop_id", nullable = false)
-  @Getter
-  private Crop crop;
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id", nullable = false)
+    private User user;
 
-  @Column(name = "price")
-  @Getter
-  private BigDecimal price;
+    @OneToOne
+    @JoinColumn(name = "crop_id", nullable = false)
+    @Getter
+    private Crop crop;
 
-  @Column(name = "quantity")
-  @Getter
-  private BigDecimal quantity;
+    @Column(name = "price")
+    @Getter
+    private BigDecimal price;
+
+    @Column(name = "quantity")
+    @Getter
+    private BigDecimal quantity;
 
 
-  @Column(name = "created_at")
-  @Getter
-  private Date createdAt;
+    @Column(name = "created_at")
+    @Getter
+    private Date createdAt;
 
-  public UserCropRequest(User user, Crop crop, BigDecimal price, BigDecimal quantity, Date createdAt) {
-    this.user = user;
-    this.crop = crop;
-    this.price = price;
-    this.quantity = quantity;
-    this.createdAt = createdAt;
-  }
+    public UserCropRequest(User user, Crop crop, BigDecimal price, BigDecimal quantity, Date createdAt, String requestId) {
+        this.user = user;
+        this.crop = crop;
+        this.price = price;
+        this.quantity = quantity;
+        this.createdAt = createdAt;
+        this.requestId = requestId;
+    }
 }
