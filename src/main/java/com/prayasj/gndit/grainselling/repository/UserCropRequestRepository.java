@@ -11,4 +11,5 @@ import java.util.List;
 @Repository
 public interface UserCropRequestRepository extends JpaRepository<UserCropRequest, Integer> {
   List<UserCropRequest> findByUser(User user);
+  void deleteByRequestId(String requestId);
 }

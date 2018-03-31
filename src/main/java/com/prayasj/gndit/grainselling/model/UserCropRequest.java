@@ -26,7 +26,7 @@ public class UserCropRequest {
     private Integer id;
 
     @Getter
-    @Column(name = "requestid")
+    @Column(name = "request_id")
     private String requestId;
 
     @OneToOne(fetch = FetchType.LAZY)
